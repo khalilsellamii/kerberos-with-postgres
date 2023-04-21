@@ -1,4 +1,4 @@
-# Postgres_Authentification_with_Kerberos
+# Postgres_Authentication_with_Kerberos
 
 <p align="center">
 <img src="https://github.com/khalilsellamii/kerberos-with-postgres/blob/main/kerberos_icon.gif" alt="Alt text" width="300" height="200">
@@ -97,7 +97,7 @@ sudo apt-get install postgresql postgresql-contrib
 Now that the service is installed, let's actually seed our postgres databse,
 ```
 create user khalil with encrypted password 'khalil';  
-create database khalil;  
+create database khalil_database;  
 grant all privileges on databse khalil to khalil;  
 ```
 
@@ -106,6 +106,38 @@ grant all privileges on databse khalil to khalil;
 listen_address = '*'
 krb_server_keyfile = '/home/postgres/postgres.keytab'
 ``` 
+### Client machine Configuration
+
+`*` As always, first install the required packages
+```
+sudo apt-get install krb5-user libpam-krb5 libpam-ccreds
+```
+> Same as before, re-eneter the same configuration specified earlier
+
+## User authentication:
+`+` Now, we've completed the needed setup, let's try and get that client authenticated !
+```
+$ psql -d khalil_database -h postgres.sec.com -U khalil 
+```
+
+In the client machine, get a ticket from the tgt (ticket granting ticket) service of kerberos
+```
+kinit
+```
+You can check the cached credentials with the command ```$ klist ```
+
+
+By now, you should be able to authenticate your user to the postgres service with the kerberos protocol.
+
+
+
+
+
+
+
+
+
+
 
 
 
