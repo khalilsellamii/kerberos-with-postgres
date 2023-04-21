@@ -15,8 +15,12 @@ This project is to demonstrate the establishment and arrangement of a Kerberos a
 
 ## Kerberos Configuration
 
-### 1. Architecture:
+### 1. Architecture of the kerberos protocol:
 
+<img src="https://github.com/khalilsellamii/kerberos-with-postgres/blob/main/kerberos_architecture.png" alt="Alt text" width="300" height="200">
+
+> Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
+> It uses secret-key cryptography and a trusted third party for authenticating client-server applications and verifying users' identities
 
 ### 2. Working Environment:
 First of all, we need to define :  
