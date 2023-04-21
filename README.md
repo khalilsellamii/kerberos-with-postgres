@@ -5,9 +5,9 @@ This project is to demonstrate the establishment and arrangement of a Kerberos a
 ## Prerequisites
 
 `+` You need to have 3 linux based machines successfully communicating with each other.  
-`+` You need to install postgresql on the server and client machine.
+`+` You need to install postgresql on the server and client machine.  
+`+` You need to install kerberos packages (krb5-kdc krb5-admin-server krb5-user)
 
-```
-  sudo apt update
-  sudo apt-get install Postgresql postgresql-contrib
-```
+## Kerberos Configuration
+
+### 1. Architecture
