@@ -7,7 +7,7 @@
 
 This project is to demonstrate the establishment and arrangement of a Kerberos authentication system that links a client, a Postgres server, and a Key Distribution Center (KDC). Through this system, the client is able to authenticate securely to the Postgres server by obtaining Kerberos tickets from the KDC.
 
-## Prerequisites
+## What do we need ?
 
 `+` You need to have at least 2 linux based machines successfully communicating with each other (3 machines for optimal usage).  
 NB: All these machines need to be time synchronised as kerberos provide tickets with expiration delay.  
