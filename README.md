@@ -77,6 +77,12 @@ addprinc client
 addprinc postgres/postgres.sec.com
 ```
 > In this specific step, as I worked with only 2 machines (KDC and Postgres Server in the same machine), I had to add a principal postgres/kdc.sec.com for whom I attribute an entry in the keytab file, otherwise, when installing kerberos packages on the client machine, I will need to specify the kerberos servers as postgres.sec.com not kdc.sec.com. (2 solutions leading to the same result)
+> ```
+> $ sudo kadmin.local
+> kadmin: addprinc postgres/kdc.sec.com@SEC.COM 
+> $ sudo ktutil
+> ktutil: addent -password -p postgres/kdc.sec.com@SEC.COM -k 1 -e aes256-cts-hmas=c-sha1-96
+> ```
 
 ### 5. Configure Postgres Server
 
