@@ -10,7 +10,7 @@ This project is to demonstrate the establishment and arrangement of a Kerberos a
 ## Prerequisites
 
 `+` You need to have at least 2 linux based machines successfully communicating with each other (3 machines for optimal usage).  
-NB: All these machines need to be time synchronised as kerberos provide tickets with expiration delay.
+NB: All these machines need to be time synchronised as kerberos provide tickets with expiration delay.  
 `+` You need to install postgresql on the server and client machine.  
 `+` You need to install kerberos packages (krb5-kdc krb5-admin-server krb5-user)
 
