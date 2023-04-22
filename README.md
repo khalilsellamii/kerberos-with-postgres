@@ -140,8 +140,11 @@ kinit
 You can check the cached credentials with the command ```$ klist ```
 
 
-By now, you should be able to authenticate your user to the postgres service with the kerberos protocol.
-
+By now, you should be able to authenticate your user to the postgresql without providing a user password, meaning, use ```$ kinit``` to get a ticket from the tgt service of kerebros, and then try connecting remotely to the service:
+```
+psql -d khalil_database -h postgres.sec.com -U khalil
+```
+You will be directly prompted to the psql command prompt without being asked to supply your password.
 
 
 
