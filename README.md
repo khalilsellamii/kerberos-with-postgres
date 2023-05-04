@@ -35,7 +35,7 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 
 # Kerberos configuration
 
-### 2. Environment:
+### 1. Environment:
 First of all, we need to define :  
   `+` Domain name : "kdc.sec.com"  
   `+` Realm : "SEC.COM"  
@@ -45,7 +45,7 @@ First of all, we need to define :
         Postgres_sever --> postgres.sec.com  
         Client --> client.sec.com  
        
-### 3. Setting the Domain(hosts):
+### 2. Setting the Domain(hosts):
 `+` In each machine, we need to change the /etc/hosts file and add the other machines to it
 
 ```
@@ -62,7 +62,7 @@ IP address  client.sec.com      client
 hostnamectl --static set-hostname <HOSTNAME_DESIRED>
 ```
 
-### 4. Configure the KDC:
+### 3. Configure the KDC:
 
 `*` Install the kerberos packages
 ```
@@ -96,7 +96,7 @@ addprinc postgres/postgres.sec.com
 > ktutil: addent -password -p postgres/kdc.sec.com@SEC.COM -k 1 -e aes256-cts-hmas=c-sha1-96
 > ```
 
-### 5. Configure Postgres Server
+### 4. Configure Postgres Server
 
 `*` Install the packages of kerberos that allow you to use kerberos's authentification 
 ```
@@ -106,6 +106,8 @@ sudo apt install krb5-user libpam-krb5 libpam-ccreds
 > MAKE SURE TO ENTER THE SAME CONFIGURATION YOU ENTERED IN THE KDC MACHINE (realm name and servers)
 
 `*` initialize the keytab file
+> this step should be done in the kdc machine, generate the keytab file in kdc machine and then transfer it to the postgres service machine
+> NB: any transfer method should do it (I used python to host a web server in the kdc machine and then execute the command```wget kdc:8000/postgres.keytab``` in the service machine)
 ```
 $ sudo ktutil
 ktutil: addent -password -p <PRINCIPAL> -k <key_Number> -e <encryption_method>
@@ -121,16 +123,29 @@ sudo apt-get install postgresql postgresql-contrib
 ```
 Now that the service is installed, let's actually seed our postgres databse,
 ```
-create user khalil with encrypted password 'khalil';  
-create database khalil_database;  
-grant all privileges on databse khalil to khalil;  
+CREATE USER khalil WITH ENCRYPTED PASSWORD 'khalil';  
+CREATE DATABASE khalil_database;  
+GRANT ALL PRIVILEGES ON DATABASE khalil_database TO khalil;  
 ```
 
-> By default, Postgres Server only allows connections from localhost. Since the client will connect to the Postgres server remotely, we will need to modify postgresql.conf so that Postgres Server allows connection from all the reached network and also specify the keytab file
+### Configuration files:
+#### `*` postgres.conf:
+
+> By default, Postgres Server only allows connections from localhost. Since the client will connect to the Postgres server remotely, we will need to modify postgresql.conf so that Postgres Server allows connection from all the reached network and also provide the path to the keytab file
 ```
 listen_address = '*'
 krb_server_keyfile = '/home/postgres/postgres.keytab'
 ``` 
+
+#### `*` pg_hba.conf
+> The pg_hba.conf file is used to configure client authentication for accessing PostgreSQL server, and controls which users or systems are allowed to connect to the database server, and how they are authenticated.
+
+We should specify that we want to allow remote access which is the TYPE of the connection over tcp/ip, the DATABASE, the USER, the USER_IP_ADDRESS_RANGE, and the METHOD of connection :  
+`+` Under the IPv4 local connections section, add the following line :
+```
+hostgssenc    khalil_database   khalil   x.x.x.x/x  gss include_realm=0 krb_realm=SEC.COM 
+```
+
 ### Client machine Configuration
 
 `*` As always, first install the required packages
@@ -144,6 +159,7 @@ sudo apt-get install krb5-user libpam-krb5 libpam-ccreds
 ```
 $ psql -d khalil_database -h postgres.sec.com -U khalil 
 ```
+An error should occur now mentionning that no pg_hba entry for the client host, which is supposed to be as we didn't get a service ticket !!
 
 In the client machine, get a ticket from the tgt (ticket granting ticket) service of kerberos
 ```
