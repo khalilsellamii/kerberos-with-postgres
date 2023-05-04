@@ -23,7 +23,7 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 > Multiple secret keys, third-party authorization, and cryptography make Kerberos a secure verification protocol. Passwords are not sent over the networks, and secret  keys are encrypted, making it difficult for attackers to impersonate users or services.
  
 ## Architecture of the kerberos protocol:
-<table>
+<table align="center">
   <tr>
     <td><img src="https://github.com/khalilsellamii/kerberos-with-postgres/blob/main/kerberos_architecture.png" alt="Alt text" width="300" height="200"></td>
     <td><img src="https://github.com/khalilsellamii/kerberos-with-postgres/blob/main/architecture.png" alt="Alt text" width="300" height="200"></td>
