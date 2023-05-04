@@ -14,7 +14,10 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 `+` You need to install postgresql on the server and client machine.  
 `+` You need to install kerberos packages (krb5-kdc krb5-admin-server krb5-user)
 
-## Kerberos Configuration
+## Introduction
+
+## What is kerberos ?
+Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
 
 ### 1. Architecture of the kerberos protocol:
 
@@ -23,7 +26,7 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 > Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
 > It uses secret-key cryptography and a trusted third party for authenticating client-server applications and verifying users' identities
 
-### 2. Working Environment:
+### 2. Environment:
 First of all, we need to define :  
   `+` Domain name : "kdc.sec.com"  
   `+` Realm : "SEC.COM"  
@@ -33,7 +36,7 @@ First of all, we need to define :
         Postgres_sever --> postgres.sec.com  
         Client --> client.sec.com  
        
-### 3. Domain Name System:
+### 3. Setting the Domain(hosts):
 `+` In each machine, we need to change the /etc/hosts file and add the other machines to it
 
 ```
