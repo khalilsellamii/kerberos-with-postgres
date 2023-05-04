@@ -19,7 +19,7 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 ## What is kerberos ?
 Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
 
-## Why is kerberos secure ?
+## Why is kerberos authentication secured ?
 
 ### 1. Architecture of the kerberos protocol:
 
