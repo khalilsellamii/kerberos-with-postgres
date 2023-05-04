@@ -14,7 +14,7 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 `+` You need to install postgresql on the server and client machine.  
 `+` You need to install kerberos packages (krb5-kdc krb5-admin-server krb5-user)
 
-## Introduction
+# Introduction
 
 ## What is kerberos ?
 Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
