@@ -20,12 +20,16 @@ NB: All these machines need to be time synchronised as kerberos provide tickets 
 > Kerberos is a computer network security protocol that authenticates service requests between two or more trusted hosts across an untrusted network
 
 ## Why is kerberos authentication secured ?
-> Multiple secret keys, third-party authorization, and cryptography make Kerberos a secure verification protocol. Passwords are not sent over the networks, and secret > keys are encrypted, making it difficult for attackers to impersonate users or services
-> 
-### 1. Architecture of the kerberos protocol:
+> Multiple secret keys, third-party authorization, and cryptography make Kerberos a secure verification protocol. Passwords are not sent over the networks, and secret  keys are encrypted, making it difficult for attackers to impersonate users or services.
+ 
+## Architecture of the kerberos protocol:
 
 <img src="https://github.com/khalilsellamii/kerberos-with-postgres/blob/main/kerberos_architecture.png" alt="Alt text" width="300" height="200">
 
+## Authenticating process description
+>After the client sends a request for authentication to the Kerberos Authentication Server (AS), the AS responds with a ticket-granting ticket (TGT). The TGT is encrypted with a secret key shared between the AS and the Kerberos Ticket Granting Server (TGS). The client then sends the TGT to the TGS, along with a request for a service ticket for a specific service. The TGS verifies the TGT and issues a service ticket, which is also encrypted with a secret key shared between the TGS and the service being requested. The client then sends the encrypted service ticket to the service, which decrypts it using its secret key to verify the client's identity and grant access to the requested service.
+
+# Kerberos configuration
 
 ### 2. Environment:
 First of all, we need to define :  
